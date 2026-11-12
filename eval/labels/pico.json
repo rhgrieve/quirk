@@ -1,0 +1,6 @@
+{
+  "bcd:css.selectors.selection css/pico.css:906": {
+    "verdict": "tp",
+    "note": "Reviewed: iOS Safari has no ::selection per BCD; unguarded rule"
+  }
+}

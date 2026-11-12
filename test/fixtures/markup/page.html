@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+  <link rel="modulepreload" href="/app.js">
+  <style>
+    .card { height: 100svh; }
+  </style>
+</head>
+<body>
+  <dialog id="d">Hello</dialog>
+  <details name="faq"><summary>Q</summary>A</details>
+  <input type="date" inert>
+  <div popover>Tip</div>
+  <img src="a.jpg" loading="lazy" style="aspect-ratio: 1; height: 100dvh">
+  <product-card open></product-card>
+  <script>
+    document.querySelector('dialog').showModal();
+  </script>
+  <script type="application/ld+json">{"a": 1}</script>
+  <!-- quirk-ignore bcd:html.global_attributes.popover -->
+  <div popover>Ignored</div>
+</body>
+</html>

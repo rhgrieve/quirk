@@ -1,0 +1,38 @@
+{
+  "bcd:css.selectors.selection assets/base.css:252": {
+    "verdict": "tp",
+    "note": "Reviewed: iOS Safari has no ::selection per BCD; unguarded rule"
+  },
+  "bcd:css.selectors.selection assets/base.css:1308": {
+    "verdict": "tp",
+    "note": "Reviewed: iOS Safari has no ::selection per BCD; unguarded rule"
+  },
+  "bcd:css.selectors.nesting assets/component-cart-items.css:38": {
+    "verdict": "tp",
+    "note": "Reviewed: native nesting shipped without a build step; Chrome 109 drops the nested rule"
+  },
+  "bcd:css.selectors.selection assets/component-product-variant-picker.css:111": {
+    "verdict": "tp",
+    "note": "Reviewed: iOS Safari has no ::selection per BCD; unguarded rule"
+  },
+  "bcd:css.selectors.nesting assets/quick-order-list.css:555": {
+    "verdict": "tp",
+    "note": "Reviewed: native nesting shipped without a build step; Chrome 109 drops the nested rule"
+  },
+  "bcd:css.selectors.selection assets/section-main-product.css:125": {
+    "verdict": "tp",
+    "note": "Reviewed: iOS Safari has no ::selection per BCD; unguarded rule"
+  },
+  "bcd:css.selectors.selection assets/template-giftcard.css:49": {
+    "verdict": "tp",
+    "note": "Reviewed: iOS Safari has no ::selection per BCD; unguarded rule"
+  },
+  "bcd:css.selectors.selection assets/template-giftcard.css:109": {
+    "verdict": "tp",
+    "note": "Reviewed: iOS Safari has no ::selection per BCD; unguarded rule"
+  },
+  "bcd:css.selectors.selection assets/template-giftcard.css:123": {
+    "verdict": "tp",
+    "note": "Reviewed: iOS Safari has no ::selection per BCD; unguarded rule"
+  }
+}

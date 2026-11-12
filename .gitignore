@@ -1,0 +1,6 @@
+node_modules/
+.scratch/
+eval/results/
+dist/
+eval/corpora.local.json
+eval/labels/local/

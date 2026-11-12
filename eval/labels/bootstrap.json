@@ -1,0 +1,18 @@
+{
+  "bcd:css.selectors.selection dist/css/bootstrap.css:4302": {
+    "verdict": "tp",
+    "note": "Reviewed: iOS Safari has no ::selection per BCD; unguarded rule"
+  },
+  "bcd:css.selectors.details-content dist/css/bootstrap.css:5614": {
+    "verdict": "tp",
+    "note": "Reviewed: unguarded ::details-content rule; target lacks it per BCD"
+  },
+  "bcd:css.selectors.details-content dist/css/bootstrap.css:5619": {
+    "verdict": "tp",
+    "note": "Reviewed: unguarded ::details-content rule; target lacks it per BCD"
+  },
+  "bcd:css.selectors.details-content dist/css/bootstrap.css:5653": {
+    "verdict": "tp",
+    "note": "Reviewed: unguarded ::details-content rule; target lacks it per BCD"
+  }
+}

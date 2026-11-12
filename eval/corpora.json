@@ -1,0 +1,58 @@
+{
+  "$comment": "Public codebases quirk is judged on, pinned to a commit and analysed as files only: their PostCSS configs are never loaded and nothing is installed or run. Add your own held-out projects to eval/corpora.local.json (same shape, with \"local\": \"<path>\" instead of repo/rev); it is gitignored.",
+  "projects": [
+    {
+      "name": "bootstrap",
+      "repo": "https://github.com/twbs/bootstrap.git",
+      "rev": "9fce85dac5e39a7008df25a14842c82e14b5bb93",
+      "paths": [
+        "dist/css/bootstrap.css",
+        "js/src"
+      ],
+      "why": "Compiled, deliberately compatible CSS framework plus vanilla ES module JS; own .browserslistrc"
+    },
+    {
+      "name": "turbo",
+      "repo": "https://github.com/hotwired/turbo.git",
+      "rev": "620f61b2f99cddc6ebd2487325b28413117e2806",
+      "paths": [
+        "src"
+      ],
+      "exclude": [
+        "src/tests"
+      ],
+      "why": "Navigation library with heavy DOM, History and fetch API use"
+    },
+    {
+      "name": "alpine",
+      "repo": "https://github.com/alpinejs/alpine.git",
+      "rev": "8d3d9a2f98385d4c879f4b5be080a0221279ed4d",
+      "paths": [
+        "packages/alpinejs/src"
+      ],
+      "why": "Reactive framework runtime: proxies, MutationObserver, microtasks"
+    },
+    {
+      "name": "pico",
+      "repo": "https://github.com/picocss/pico.git",
+      "rev": "a07563ddc856e6ed31a740e33b0397814227d469",
+      "paths": [
+        "css/pico.css"
+      ],
+      "why": "Compiled modern CSS with :where(), custom properties and form styling"
+    },
+    {
+      "name": "dawn",
+      "repo": "https://github.com/Shopify/dawn.git",
+      "rev": "3e9ee2281dc40e1eda9d5fd3ca64719d0a36b47d",
+      "paths": [
+        "assets",
+        "layout",
+        "sections",
+        "snippets",
+        "templates"
+      ],
+      "why": "Hand-written storefront: Liquid markup, CSS and custom-element JS without a build step"
+    }
+  ]
+}

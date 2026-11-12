@@ -1,0 +1,82 @@
+{
+  "$comment": "Curated: BCD gaps that do not change behaviour for users of the listed browsers. Each entry needs a reason a reviewer can check.",
+  "entries": [
+    {
+      "match": "css.properties.cursor",
+      "browsers": [
+        "safari_ios",
+        "chrome_android",
+        "firefox_android",
+        "samsunginternet_android",
+        "opera_android",
+        "webview_android"
+      ],
+      "reason": "Touch browsers show no pointer cursor; an iPad with a pointing device falls back to the default cursor, which is harmless.",
+      "evidence": [
+        "https://developer.mozilla.org/docs/Web/CSS/cursor#browser_compatibility"
+      ]
+    },
+    {
+      "match": "css.properties.resize",
+      "browsers": [
+        "safari_ios",
+        "chrome_android",
+        "firefox_android",
+        "samsunginternet_android",
+        "opera_android",
+        "webview_android"
+      ],
+      "reason": "Mobile browsers have no resize handle; the element keeps its laid-out size.",
+      "evidence": [
+        "https://bugzil.la/1776834"
+      ]
+    },
+    {
+      "match": "html.elements.meta.name.viewport",
+      "browsers": [
+        "chrome",
+        "edge",
+        "firefox",
+        "opera",
+        "safari"
+      ],
+      "reason": "Desktop browsers have no mobile layout viewport to configure; the tag only takes effect on mobile browsers.",
+      "evidence": [
+        "https://developer.mozilla.org/docs/Web/HTML/Reference/Elements/meta/name/viewport"
+      ]
+    },
+    {
+      "match": "html.global_attributes.autocapitalize",
+      "browsers": [
+        "chrome",
+        "edge",
+        "firefox",
+        "opera",
+        "safari"
+      ],
+      "reason": "autocapitalize controls virtual and on-screen keyboards; desktop browsers with physical keyboards have nothing to apply it to.",
+      "evidence": [
+        "https://developer.mozilla.org/docs/Web/HTML/Reference/Global_attributes/autocapitalize"
+      ]
+    },
+    {
+      "match": "html.elements.video.playsinline",
+      "browsers": [
+        "chrome",
+        "edge",
+        "firefox",
+        "opera",
+        "safari",
+        "firefox_android",
+        "chrome_android",
+        "samsunginternet_android",
+        "opera_android",
+        "webview_android"
+      ],
+      "reason": "These browsers already play video inline; playsinline only changes the iOS default of playing fullscreen.",
+      "evidence": [
+        "https://developer.mozilla.org/docs/Web/HTML/Reference/Elements/video#playsinline"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{% comment %}
+  <dialog>inside a comment is not markup</dialog>
+{% endcomment %}
+<div class="section-{{ section.id }}" {% if section.settings.hide %}hidden{% endif %}>
+  {% if show %}<search>{{ 'search' | t }}</search>{% endif %}
+</div>
+{% style %}
+  #shopify-section-{{ section.id }} .a { height: 100dvh; color: {{ section.settings.color }}; }
+{% endstyle %}
+{% javascript %}
+  const copy = structuredClone({ a: 1 });
+{% endjavascript %}
+{% schema %}
+{ "name": "Section", "settings": [] }
+{% endschema %}
+<style>{{ settings.custom_css }}</style>
+<div style="{{ ratio_style }}"></div>
+{% style %}
+  {%- comment -%} Prose: a comment inside a style block {%- endcomment -%}
+  @media (min-width: 768px) { .b { color: red; } }
+{% endstyle %}

@@ -1,0 +1,46 @@
+{
+  "name": "quirk",
+  "version": "0.1.0",
+  "description": "Static cross-browser compatibility checks against a corpus of known browser differences",
+  "type": "module",
+  "license": "MIT",
+  "private": true,
+  "bin": {
+    "quirk": "./bin/quirk.mjs"
+  },
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "quirk": "node --experimental-strip-types src/cli/main.ts",
+    "eval": "node eval/run.ts",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "@mdn/browser-compat-data": "^8.1.9",
+    "browserslist": "^4.29.5",
+    "parse5": "^8.0.1",
+    "postcss": "^8.5.32",
+    "postcss-selector-parser": "^7.2.1",
+    "postcss-value-parser": "^4.2.0",
+    "typescript": "~5.9.3",
+    "web-features": "^3.45.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "vitest": "^5.1.0"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "corpus",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rhgrieve/quirk.git"
+  }
+}
