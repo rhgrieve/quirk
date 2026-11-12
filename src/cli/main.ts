@@ -6,6 +6,7 @@ import { check } from '../engine/check.ts';
 import { SEVERITY_RANK, type Severity } from '../engine/failure.ts';
 import { resolveTargets } from '../engine/targets.ts';
 import { explain } from './explain.ts';
+import { formatHtml } from './html.ts';
 import { formatJson, formatText } from './report.ts';
 import { formatSarif } from './sarif.ts';
 
@@ -26,7 +27,7 @@ Options:
   --baseline <file>       Baseline file (default: <root>/${DEFAULT_BASELINE}, used when it exists)
   --ignore-baseline       Report every finding, ignoring the baseline
   --include-ignored       Also check files git ignores (skipped by default)
-  --format <format>       text | json | sarif (default: text)
+  --format <format>       text | json | sarif | html (default: text)
   --show-suppressed       List findings suppressed by guards, fallbacks, ignore comments, corpus or baseline
   --fail-on <level>       Exit 1 on findings at or above: error | warning | info | never (default: never)
 `;
@@ -101,8 +102,9 @@ async function main(): Promise<number> {
   const format = values.format;
   if (format === 'json') console.log(formatJson(result, root));
   else if (format === 'sarif') console.log(formatSarif(result, root));
+  else if (format === 'html') process.stdout.write(formatHtml(result, root));
   else if (format === 'text') console.log(formatText(result, root, values['show-suppressed']));
-  else throw new Error(`--format must be text, json or sarif; got ${format}`);
+  else throw new Error(`--format must be text, json, sarif or html; got ${format}`);
 
   const threshold = values['fail-on'];
   if (threshold === 'never') return 0;

@@ -14,7 +14,7 @@ rules come from public sources only, and changes are judged across several codeb
 quirk isn't on npm. Install a release tarball as a dev dependency:
 
 ```bash
-npm install --save-dev https://github.com/rhgrieve/quirk/releases/download/v0.1.1/quirk-0.1.1.tgz
+npm install --save-dev https://github.com/rhgrieve/quirk/releases/download/v0.1.2/quirk-0.1.2.tgz
 ```
 
 Release tarballs include the compiled build, so nothing is built on install.
@@ -28,6 +28,7 @@ npx quirk check src templates --format json
 npx quirk baseline src templates           # accept today's findings
 npx quirk explain bcd:css.properties.gap.flex_context
 npx quirk check src --format sarif > quirk.sarif
+npx quirk check src --ignore-baseline --format html > quirk-report.html
 ```
 
 Adopting quirk in a project (browserslist, baseline, lefthook, CI, SARIF):
@@ -39,7 +40,7 @@ Adopting quirk in a project (browserslist, baseline, lefthook, CI, SARIF):
 | `--targets <query>` | browserslist query instead of the project's config |
 | `--raw-css` | Analyse CSS as written. By default the project's PostCSS config runs first, so features it compiles away (nesting, prefixes) are not reported |
 | `--tsconfig <file>` | tsconfig for type resolution (default: `<root>/tsconfig.json`) |
-| `--format text\|json\|sarif` | Output format |
+| `--format text\|json\|sarif\|html` | Output format. `html` is a self-contained report with filters, support tables and code snippets |
 | `--baseline <file>` | Baseline of accepted findings (default `.quirk-baseline.json` in the root, used when present) |
 | `--ignore-baseline` | Report every finding, ignoring the baseline |
 | `--include-ignored` | Also check files git ignores. By default they are skipped (build output, generated files); tracked files are always checked |

@@ -70,6 +70,18 @@ export function compatChild(path: string, key: string): string | undefined {
   return compatAt(child) ? child : undefined;
 }
 
+/** BCD descriptions and notes are HTML fragments: drop the tags and decode the entities. */
+export function plainText(html: string): string {
+  return html
+    .replace(/<[^>]+>/g, '')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&#(\d+);/g, (_, code: string) => String.fromCharCode(Number(code)))
+    .replace(/&amp;/g, '&');
+}
+
 export function browserName(id: string): string {
   return bcd.browsers[id]?.name ?? id;
 }

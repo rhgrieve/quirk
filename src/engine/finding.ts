@@ -1,5 +1,5 @@
 import { createRequire } from 'node:module';
-import { browserName, compatAt, webFeatureFor, type WebFeature } from '../data/bcd.ts';
+import { browserName, plainText, compatAt, webFeatureFor, type WebFeature } from '../data/bcd.ts';
 import { FAILURE, type FailureMode, type Severity } from './failure.ts';
 import { gaps, supportAt, type TargetSupport } from './support.ts';
 import type { Target } from './targets.ts';
@@ -47,7 +47,7 @@ function notApplicableFor(bcdPath: string, browser: string): NotApplicable | und
   );
 }
 
-const stripTags = (s: string) => s.replace(/<[^>]+>/g, '');
+const stripTags = plainText;
 
 export interface SupportCandidate {
   bcdPath: string;

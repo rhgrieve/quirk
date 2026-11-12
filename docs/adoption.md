@@ -20,7 +20,12 @@ npx quirk targets
 npx quirk check src
 npx quirk check src templates --format json > quirk.json
 npx quirk explain bcd:css.properties.gap.flex_context
+npx quirk check src templates --ignore-baseline --format html > quirk-report.html
 ```
+
+The HTML report is one self-contained file with no external requests. It lets you filter
+by severity, browser and file, shows each finding's per-browser support with the source
+lines, and can include suppressed findings with the reason each was skipped.
 
 Pass every directory that holds CSS, JS/TS, HTML or template files; the default is `src`.
 In a git repository, files git ignores (build output, generated templates) are skipped, so

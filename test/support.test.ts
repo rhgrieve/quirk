@@ -48,3 +48,11 @@ describe('curated corpus', () => {
     expect(f).toMatchObject({ failure: 'differs', severity: 'info' });
   });
 });
+
+describe('plain text from BCD', () => {
+  it('drops tags and decodes entities', async () => {
+    const { plainText } = await import('../src/data/bcd.ts');
+    expect(plainText('Nesting selector (<code>&amp;</code>)')).toBe('Nesting selector (&)');
+    expect(plainText('<code>&lt;dialog&gt;</code> &quot;open&quot; &#62;')).toBe('<dialog> "open" >');
+  });
+});

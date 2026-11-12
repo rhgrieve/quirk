@@ -1,8 +1,8 @@
-import { browserName, compatAt, webFeatureFor } from '../data/bcd.ts';
+import { browserName, plainText, compatAt, webFeatureFor } from '../data/bcd.ts';
 import { supportAt } from '../engine/support.ts';
 import type { ResolvedTargets } from '../engine/targets.ts';
 
-const strip = (s: string) => s.replace(/<[^>]+>/g, '');
+const strip = plainText;
 
 /** Per-target support for one rule (`bcd:css.properties.gap.flex_context` or the bare BCD path). */
 export function explain(id: string, targets: ResolvedTargets): string | undefined {
