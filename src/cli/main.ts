@@ -25,6 +25,7 @@ Options:
   --tsconfig <file>       tsconfig for type resolution (default: <root>/tsconfig.json if present)
   --baseline <file>       Baseline file (default: <root>/${DEFAULT_BASELINE}, used when it exists)
   --ignore-baseline       Report every finding, ignoring the baseline
+  --include-ignored       Also check files git ignores (skipped by default)
   --format <format>       text | json | sarif (default: text)
   --show-suppressed       List findings suppressed by guards, fallbacks, ignore comments, corpus or baseline
   --fail-on <level>       Exit 1 on findings at or above: error | warning | info | never (default: never)
@@ -40,6 +41,7 @@ async function main(): Promise<number> {
       tsconfig: { type: 'string' },
       baseline: { type: 'string' },
       'ignore-baseline': { type: 'boolean', default: false },
+      'include-ignored': { type: 'boolean', default: false },
       format: { type: 'string', default: 'text' },
       'show-suppressed': { type: 'boolean', default: false },
       'fail-on': { type: 'string', default: 'never' },
@@ -77,6 +79,7 @@ async function main(): Promise<number> {
     targets: values.targets,
     postcss: values['raw-css'] ? (false as const) : ('auto' as const),
     tsconfig: values.tsconfig,
+    gitignore: !values['include-ignored'],
   };
 
   if (command === 'baseline') {

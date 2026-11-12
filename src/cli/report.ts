@@ -26,6 +26,7 @@ export function formatText(result: CheckResult, root: string, showSuppressed: bo
   lines.push(dim(`targets (${t.query}): ${t.targets.map((x) => `${browserName(x.browser)} ${x.version}+`).join(', ')}`));
   if (t.skipped.length) lines.push(dim(`no compat data for: ${t.skipped.join(', ')}`));
   lines.push(dim(result.postcss ? 'css: analysed after the project PostCSS pipeline' : 'css: analysed as written'));
+  if (result.gitignored) lines.push(dim(`skipped ${result.gitignored} gitignored file(s) (--include-ignored to check them)`));
   if (result.baseline) {
     const { matched, stale, file } = result.baseline;
     lines.push(dim(`baseline ${path.relative(root, file)}: ${matched} accepted findings hidden${stale ? `, ${stale} entries no longer match (run quirk baseline to prune)` : ''}`));

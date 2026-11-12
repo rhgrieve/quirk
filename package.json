@@ -1,6 +1,6 @@
 {
   "name": "quirk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Static cross-browser compatibility checks against a corpus of known browser differences",
   "type": "module",
   "license": "MIT",

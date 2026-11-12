@@ -1,3 +1,4 @@
+import { spawnSync } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -25,6 +26,11 @@ export interface CheckOptions {
   postcss?: boolean | 'auto';
   tsconfig?: string;
   /**
+   * Skip files the project's git ignores (build output, generated snippets). Default true.
+   * Tracked files are always checked, even in an ignored directory.
+   */
+  gitignore?: boolean;
+  /**
    * Baseline file of accepted findings. Defaults to `<root>/.quirk-baseline.json` when it
    * exists; `false` ignores any baseline (used to regenerate it).
    */
@@ -35,6 +41,8 @@ export interface CheckResult {
   targets: ResolvedTargets;
   /** Whether CSS files were analysed after the project's PostCSS pipeline. */
   postcss: boolean;
+  /** Files left out because git ignores them. */
+  gitignored: number;
   /** Embedded CSS or JS that could not be parsed, as `file:line – reason`. */
   unparsed: string[];
   /** Set when a baseline was applied. */
@@ -68,6 +76,30 @@ export function discover(entries: string[]): string[] {
   return files;
 }
 
+/**
+ * The files git ignores, via `git check-ignore` (which honours every .gitignore, info/exclude
+ * and the global excludes file, and never reports tracked files). Outside a git repository,
+ * or without git, nothing is treated as ignored.
+ */
+export function gitIgnored(files: string[], root: string): Set<string> {
+  if (files.length === 0) return new Set();
+  const relative = files.map((f) => path.relative(root, f));
+  const result = spawnSync('git', ['check-ignore', '-z', '--stdin'], {
+    cwd: root,
+    input: `${relative.join('\0')}\0`,
+    encoding: 'utf8',
+    maxBuffer: 64 * 1024 * 1024,
+  });
+  // Exit 0: some paths ignored; 1: none; anything else: not a repository or no git.
+  if (result.error || result.status !== 0) return new Set();
+  return new Set(
+    result.stdout
+      .split('\0')
+      .filter(Boolean)
+      .map((p) => path.resolve(root, p)),
+  );
+}
+
 function postcssConfigFile(root: string): string | undefined {
   const candidates = ['postcss.config.mjs', 'postcss.config.js', 'postcss.config.cjs'];
   return candidates.map((c) => path.join(root, c)).find((f) => existsSync(f));
@@ -88,9 +120,11 @@ export async function check(options: CheckOptions): Promise<CheckResult> {
   const root = path.resolve(options.root);
   const targets = resolveTargets(root, options.targets);
   const excluded = (options.exclude ?? []).map((p) => path.resolve(root, p));
-  const files = discover(options.paths.length ? options.paths.map((p) => path.resolve(root, p)) : [path.join(root, 'src')]).filter(
+  const discovered = discover(options.paths.length ? options.paths.map((p) => path.resolve(root, p)) : [path.join(root, 'src')]).filter(
     (f) => !excluded.some((e) => f === e || f.startsWith(`${e}${path.sep}`)),
   );
+  const ignored = options.gitignore === false ? new Set<string>() : gitIgnored(discovered, root);
+  const files = discovered.filter((f) => !ignored.has(f));
   const cssFiles = files.filter((f) => CSS_EXT.has(path.extname(f).toLowerCase()));
   const jsFiles = files.filter((f) => JS_EXT.has(path.extname(f).toLowerCase()));
   const markupFiles = files.filter((f) => MARKUP_EXTENSIONS.has(path.extname(f).toLowerCase()));
@@ -171,5 +205,5 @@ export async function check(options: CheckOptions): Promise<CheckResult> {
     else if (options.baseline) throw new Error(`baseline not found: ${file}`);
   }
 
-  return { targets, postcss: Boolean(plugins), unparsed, baseline, files: files.length, findings };
+  return { targets, postcss: Boolean(plugins), gitignored: ignored.size, unparsed, baseline, files: files.length, findings };
 }

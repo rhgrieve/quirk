@@ -23,6 +23,8 @@ npx quirk explain bcd:css.properties.gap.flex_context
 ```
 
 Pass every directory that holds CSS, JS/TS, HTML or template files; the default is `src`.
+In a git repository, files git ignores (build output, generated templates) are skipped, so
+running before or after a build gives the same result.
 If a project has a PostCSS config, CSS files run through it first, so features it compiles
 away are not reported. CSS embedded in markup is checked as written.
 

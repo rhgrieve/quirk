@@ -14,7 +14,7 @@ rules come from public sources only, and changes are judged across several codeb
 quirk isn't on npm. Install a release tarball as a dev dependency:
 
 ```bash
-npm install --save-dev https://github.com/rhgrieve/quirk/releases/download/v0.1.0/quirk-0.1.0.tgz
+npm install --save-dev https://github.com/rhgrieve/quirk/releases/download/v0.1.1/quirk-0.1.1.tgz
 ```
 
 Release tarballs include the compiled build, so nothing is built on install.
@@ -42,6 +42,7 @@ Adopting quirk in a project (browserslist, baseline, lefthook, CI, SARIF):
 | `--format text\|json\|sarif` | Output format |
 | `--baseline <file>` | Baseline of accepted findings (default `.quirk-baseline.json` in the root, used when present) |
 | `--ignore-baseline` | Report every finding, ignoring the baseline |
+| `--include-ignored` | Also check files git ignores. By default they are skipped (build output, generated files); tracked files are always checked |
 | `--show-suppressed` | Also list findings suppressed by guards, fallbacks, ignore comments, the corpus or the baseline |
 | `--fail-on error\|warning\|info\|never` | Exit 1 when findings at or above that level remain (default: `never`, report-only) |
 
